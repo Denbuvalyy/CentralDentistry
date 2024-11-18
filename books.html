@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Книги отця Ігоря Царя</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+        <link href="./css/layout.css" rel="stylesheet"/>
+        <script src="query/jquery.min.js"></script>
+       
+
+    </head>
+    <body style="background-color:burlywood;"> 
+        <div class="imgContainer img-responsive" style="margin:5px;">
+            <h2 style="text-align: center;font-family: Arial, Helvetica, sans-serif;">Книги отця Ігоря Царя</h2>
+            <div id="output" ></div>                     
+        </div> 
+        <hr>  
+        <div class="return">
+            <a href="index.html">Головна</a>
+        </div>    
+       
+          
+        <script type="text/javascript">       
+
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                
+                var obj=JSON.parse(allText);
+                for(i=0;i<obj.books.length;i++){ 
+
+                    var container=document.createElement("div");
+                    container.style.margin="15px";    
+                    container.style.display="inline-block";                             
+
+                    var img=new Image(300,300);
+                    img.src=obj.books[i].image;
+                    
+                    var span=document.createElement("div");
+                    span.innerText=obj.books[i].name;                                  
+                    span.style.fontSize="22px";
+                    span.style.textAlign="center";
+                    span.style.color="black";
+                    span.style.width="300px";
+                    
+                    var link=document.createElement("a");
+                    link.href=obj.books[i].path;
+                    link.target="_blank";
+                    link.style.textDecoration="none";
+                    link.appendChild(img);
+                    
+                    if(obj.books[i].name=="Троянди від сестри Теклі"){
+                        var linkImages=document.createElement("a");
+                        linkImages.href="tekliaimages.html";
+                        linkImages.style.textDecoration="none";   
+                        linkImages.style.color="red";
+                     
+                        var linktext=document.createTextNode("39 фото сестри Теклі");
+                        linkImages.appendChild(linktext);
+                        span.innerText+="\n";                        
+                        span.appendChild(linkImages);
+                    }                    
+
+                    if(obj.books[i].name=="За що ми любимо Бандеру"){
+                        var linkImages=document.createElement("a");
+                        linkImages.href="Books/15. За що ми любимо Бандеру (укр,англ,рос)/042_Bandera_Eng.pdf";
+                        linkImages.style.textDecoration="none";
+                        linkImages.target="_blank";
+                        linkImages.style.color="green";
+                        var linktext=document.createTextNode("Why we love Bandera");
+                        linkImages.appendChild(linktext);
+                        span.innerHTML+="</br>";
+                        span.appendChild(linkImages);                 
+                       
+                        var linkImage=document.createElement("a");
+                        linkImage.href="Books/15. За що ми любимо Бандеру (укр,англ,рос)/046_Bandera-ros.pdf";
+                        linkImage.style.textDecoration="none";
+                        linkImage.target="_blank";
+                        linkImage.style.color="red";
+                        var linktexts=document.createTextNode("За что мы любим Бандеру");                        
+                        linkImage.appendChild(linktexts);
+                        span.innerHTML+="</br>";
+                        span.appendChild(linkImage);
+                    }
+
+                    if(obj.books[i].name=="Паломник"){
+                        var linkImages=document.createElement("a");
+                        linkImages.href="Books/26. Паломник/Паломник_англ.pdf";
+                        linkImages.style.textDecoration="none";                        
+                        linkImages.target="_blank";
+                        linkImages.style.color="red";
+                        var linktext=document.createTextNode("Pilgrim");
+                        linkImages.appendChild(linktext);
+                        span.innerText+="\n";                        
+                        span.appendChild(linkImages);
+                    }
+
+                    if(obj.books[i].name=="Велетень Духа"){
+                        var linkImages=document.createElement("a");
+                        linkImages.href="Books/27. Велетень Духа/Велетень Духа_англ.pdf";
+                        linkImages.style.textDecoration="none";                        
+                        linkImages.target="_blank";
+                        linkImages.style.color="red";
+                        var linktext=document.createTextNode("Spiritual Giant");
+                        linkImages.appendChild(linktext);
+                        span.innerText+="\n";                        
+                        span.appendChild(linkImages);
+                    }
+
+                    if(obj.books[i].name=="Останні будуть першими"){
+                        var linkImages=document.createElement("a");
+                        linkImages.href="Books/2.Останні будуть першими (англ.)/2. Останні б.п.англ.pdf";
+                        linkImages.style.textDecoration="none";                        
+                        linkImages.target="_blank";
+                        linkImages.style.color="red";
+                        var linktext=document.createTextNode("The last shall be first");
+                        linkImages.appendChild(linktext);
+                        span.innerHTML+="</br>";
+                        span.appendChild(linkImages);
+
+                        var linkImage=document.createElement("a");
+                        linkImage.href="audiobook_last_first.html";
+                        linkImage.style.textDecoration="none";                        
+                        linkImage.style.color="green";
+                        var linktexts=document.createTextNode("Аудіо-книга");                        
+                        linkImage.appendChild(linktexts);
+                        span.innerHTML+="</br>";
+                        span.appendChild(linkImage);
+                    }
+                   
+
+                    link.appendChild(span);                    
+
+                    container.appendChild(link);                   
+                   
+                    document.getElementById("output").appendChild(container);
+                }
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
+$(document).ready(function(){
+    
+    readTextFile("booklist.json");  
+
+});  
+           
+   
+        </script> 
+    </body> 
+</html>
